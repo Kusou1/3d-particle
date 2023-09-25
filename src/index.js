@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import Model from './model';
 
 /*------------------------------
 Renderer
@@ -29,12 +30,12 @@ camera.position.y = 1;
 /*------------------------------
 Mesh
 ------------------------------*/
-const geometry = new THREE.BoxGeometry(2, 2, 2);
-const material = new THREE.MeshBasicMaterial( { 
-  color: 0x00ff00,
-} );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+// const geometry = new THREE.BoxGeometry(2, 2, 2);
+// const material = new THREE.MeshBasicMaterial( { 
+//   color: 0x00ff00,
+// } );
+// const cube = new THREE.Mesh( geometry, material );
+// scene.add( cube );
 
 
 /*------------------------------
@@ -51,6 +52,50 @@ scene.add( gridHelper );
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
+/*------------------------------
+Models
+------------------------------*/
+const skull = new Model({
+  name: 'skull',
+  file: './models/skull.glb',
+  scene: scene
+})
+
+const horse = new Model({
+  name: 'horse',
+  file: './models/horse.glb',
+  scene: scene
+})
+
+/*------------------------------
+Controllers
+------------------------------*/
+const buttons = document.querySelectorAll('.button')
+// buttons[0].addEventListener('click', ()=>{
+//   skull.add()
+//   horse.remove()
+// })
+// buttons[1].addEventListener('click', ()=>{
+//   skull.remove()
+//   horse.add()
+// })
+
+buttons[0].addEventListener("click",()=>{
+  skull.add()
+  horse.remove()
+  dragons.remove()
+  skulptur.remove()
+  tombstone.remove()
+})
+
+buttons[1].addEventListener("click",()=>{
+  horse.add()
+  skull.remove()
+  dragons.remove()
+  skulptur.remove()
+  tombstone.remove()
+
+})
 
 /*------------------------------
 Loop
