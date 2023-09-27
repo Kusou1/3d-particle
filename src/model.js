@@ -2,12 +2,15 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler'
-
+import vertex from './shader/vertexShader.glsl'
+import fragment from './shader/fragmentShader.glsl'
 class Model {
     constructor(obj) {
         this.name = obj.name
         this.file = obj.file
         this.scene = obj.scene
+        this.color1 = obj.color1
+        this.color2 = obj.color2
         this.placeOnLoad = obj.placeOnLoad
 
         this.loader = new GLTFLoader()
@@ -27,12 +30,25 @@ class Model {
             /*------------------------------
             Particles Material
             ------------------------------*/
-            this.particlesMaterial = new THREE.PointsMaterial({
-                color: '#fff768',
-                size: 0.02,
-                wireframe: true
+            // this.particlesMaterial = new THREE.PointsMaterial({
+            //     color: '#fff768',
+            //     size: 0.02,
+            //     wireframe: true
+            // })
+            this.particlesMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    // uColor1: { value: new THREE.Color('#004af2')},
+                    // uColor2: { value: new THREE.Color('red')},
+                    uColor1: { value: new THREE.Color(this.color1)},
+                    uColor2: { value: new THREE.Color(this.color2)},
+                    uTime: { value: 0},
+                    uScale: { value: 0}
+                },
+                vertexShader: vertex,
+                fragmentShader: fragment,
+                transparent: true
             })
-            this.mesh.material = this.material
+            // this.mesh.material = this.material
 
             /*------------------------------
             Particles Geometry

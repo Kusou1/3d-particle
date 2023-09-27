@@ -50,13 +50,17 @@ const skull = new Model({
     name: 'skull',
     file: './models/skull.glb',
     scene: scene,
-    placeOnLoad: true
+    placeOnLoad: true,
+    color1: 'blue',
+    color2: 'yellow'
 })
 
 const horse = new Model({
     name: 'horse',
     file: './models/horse.glb',
-    scene: scene
+    scene: scene,
+    color1: 'blue',
+    color2: 'pink',
 })
 
 /*------------------------------
@@ -75,17 +79,11 @@ const buttons = document.querySelectorAll('.button')
 buttons[0].addEventListener('click', () => {
     skull.add()
     horse.remove()
-    dragons.remove()
-    skulptur.remove()
-    tombstone.remove()
 })
 
 buttons[1].addEventListener('click', () => {
     horse.add()
     skull.remove()
-    dragons.remove()
-    skulptur.remove()
-    tombstone.remove()
 })
 
 /*------------------------------

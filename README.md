@@ -58,6 +58,11 @@ void main() {
   gl_PointSize = 8.0 / -mvPosition.z;
 }
 ```
+1. 8.0 mean particles pixel
+2. position attribute is from three.js,if no in three.js,we show pass this attribute manual
+3. glsl we show level semi(;) at the end of each line
+4. when we declare a variable in glsl,we must also declare its type
+
 
 ### 📝 Fragment Shader Sample
 ``` 
