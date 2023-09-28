@@ -46,7 +46,10 @@ class Model {
                 },
                 vertexShader: vertex,
                 fragmentShader: fragment,
-                transparent: true
+                transparent: true,
+                depthTest: false,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending
             })
             // this.mesh.material = this.material
 
