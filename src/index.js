@@ -35,6 +35,7 @@ Mesh
 OrbitControls
 ------------------------------*/
 const controls = new OrbitControls(camera, renderer.domElement)
+controls.enabled = false
 
 /*------------------------------
 Helpers
@@ -131,8 +132,8 @@ function onMouseMove(e) {
   const y = e.clientY  
 
   gsap.to(scene.rotation, {
-    y: gsap.utils.mapRange(0, window.innerWidth, .2, -.2, x),
-    x: gsap.utils.mapRange(0, window.innerHeight, .2, -.2, y)
+    y: gsap.utils.mapRange(0, window.innerWidth, .4, -.4, x),
+    x: gsap.utils.mapRange(0, window.innerHeight, .4, -.4, y)
   })
 }
 window.addEventListener('mousemove', onMouseMove)
