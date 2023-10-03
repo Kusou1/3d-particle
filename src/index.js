@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import Model from './model'
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler'
@@ -51,8 +52,9 @@ const skull = new Model({
     file: './models/skull.glb',
     scene: scene,
     placeOnLoad: true,
-    color1: 'blue',
-    color2: 'yellow'
+    color1: 'red',
+    color2: 'yellow',
+    background: '#47001b'
 })
 
 const horse = new Model({
@@ -61,6 +63,7 @@ const horse = new Model({
     scene: scene,
     color1: 'blue',
     color2: 'pink',
+    background: '#110047'
 })
 
 /*------------------------------
@@ -87,11 +90,23 @@ buttons[1].addEventListener('click', () => {
 })
 
 /*------------------------------
+Clock
+------------------------------*/
+const clock = new THREE.Clock()
+
+/*------------------------------
 Loop
 ------------------------------*/
 const animate = function () {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
+
+    if (skull.isActive) {
+      skull.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime()
+    }
+    if (horse.isActive) {
+      horse.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime()
+    }
 }
 animate()
 
@@ -104,3 +119,20 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight)
 }
 window.addEventListener('resize', onWindowResize, false)
+
+
+/*------------------------------
+MouseMove
+------------------------------*/
+function onMouseMove(e) {
+  // console.log(e)
+ 
+  const x = e.clientX
+  const y = e.clientY  
+
+  gsap.to(scene.rotation, {
+    y: gsap.utils.mapRange(0, window.innerWidth, .2, -.2, x),
+    x: gsap.utils.mapRange(0, window.innerHeight, .2, -.2, y)
+  })
+}
+window.addEventListener('mousemove', onMouseMove)
